@@ -69,11 +69,12 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [docs/MIGRATION.md](docs/MI
 
 ## Deploy (Railway)
 
-Repo: [github.com/xmash/renpresso](https://github.com/xmash/renpresso)
+Repo (Railway): [github.com/fxepro/renpresso](https://github.com/fxepro/renpresso)  
+Mirror: [github.com/xmash/renpresso](https://github.com/xmash/renpresso)
 
 ### 1. Create project
 
-1. Open [Railway](https://railway.com) → **New Project** → **Deploy from GitHub repo** → select `xmash/renpresso`.
+1. Open [Railway](https://railway.com) → **New Project** → **Deploy from GitHub repo** → select **`fxepro/renpresso`**.
 2. Railway uses the root `Dockerfile` and `railway.json` (health check: `/up`).
 
 ### 2. Add PostgreSQL
