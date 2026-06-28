@@ -1,0 +1,4 @@
+<?php
+// This file is intentionally blank — see individual config files
+// config/cache.php, config/queue.php etc are loaded from Laravel's defaults
+// Override only what you need in config/

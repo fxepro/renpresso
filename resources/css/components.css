@@ -1,0 +1,75 @@
+/**
+ * Layout utilities — assigned by shells, not pages.
+ */
+
+.page-main {
+  min-height: calc(100vh - var(--header-height));
+  padding-top: var(--header-height);
+}
+
+.page-body {
+  padding-bottom: 4rem;
+}
+
+/* Cancel shell header offset for full-bleed heroes */
+.page-body > .page-hero:first-child,
+.page-body > .hero:first-child,
+.page-body > .waitlist-page:first-child {
+  margin-top: calc(-1 * var(--header-height));
+}
+
+/* Auth shell (login / register) */
+body.auth-page .page-main--auth {
+  min-height: 100vh;
+  padding-top: 0;
+}
+
+body.auth-page .page-body {
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  body.auth-page .page-body {
+    grid-template-columns: 1fr;
+  }
+
+  body.auth-page .login-left {
+    display: none;
+  }
+
+  body.auth-page .login-right {
+    padding: 60px 32px;
+  }
+}
+
+body.onboarding-page .page-main--auth {
+  min-height: 100vh;
+  padding-top: 0;
+}
+
+body.onboarding-page .page-body {
+  padding: 0;
+  display: block;
+  min-height: auto;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-inline);
+}
+
+.container-sm {
+  max-width: var(--container-sm);
+  margin-inline: auto;
+  padding-inline: var(--space-inline);
+}
+
+.container-narrow {
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  padding-inline: var(--space-inline);
+}

@@ -1,0 +1,40 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-B4npqIfS.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/css/dashboard-admin.css": {
+    "file": "assets/dashboard-admin-CDOv9F5R.css",
+    "src": "resources/css/dashboard-admin.css",
+    "isEntry": true
+  },
+  "resources/css/dashboard-portal.css": {
+    "file": "assets/dashboard-portal-CphhfoOr.css",
+    "src": "resources/css/dashboard-portal.css",
+    "isEntry": true
+  },
+  "resources/css/dashboard.css": {
+    "file": "assets/dashboard-B5miK2xq.css",
+    "src": "resources/css/dashboard.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CVRQlA-1.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/dashboard-admin.js": {
+    "file": "assets/dashboard-admin-CzcWkx32.js",
+    "name": "dashboard-admin",
+    "src": "resources/js/dashboard-admin.js",
+    "isEntry": true
+  },
+  "resources/js/dashboard.js": {
+    "file": "assets/dashboard-DCkpk34x.js",
+    "name": "dashboard",
+    "src": "resources/js/dashboard.js",
+    "isEntry": true
+  }
+}

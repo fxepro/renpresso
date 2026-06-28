@@ -1,0 +1,60 @@
+/**
+ * Design tokens — single source. Do not duplicate hex values elsewhere.
+ */
+
+:root {
+  --navy: #0D1F35;
+  --navy-mid: #162d4a;
+  --navy-light: #1e3a5f;
+  --navy-border: rgba(255, 255, 255, 0.08);
+
+  --cream: #FAF8F3;
+  --cream-dark: #F0EDE4;
+
+  --terra: #C4622D;
+  --terra-light: #d97448;
+  --terra-pale: #FAF0EB;
+
+  --gold: #C9963A;
+  --gold-pale: #FBF3E4;
+
+  --green: #2A6B4A;
+  --green-pale: #E4F0EA;
+
+  --text-dark: #0D1F35;
+  --text-mid: #4A5A6A;
+  --text-light: #8A99AA;
+
+  --white: #ffffff;
+  --radius: 16px;
+  --radius-lg: 26px;
+
+  --header-height: 5rem;
+  --container-max: 1320px;
+  --container-sm: 920px;
+  --container-narrow: 760px;
+
+  /* Typography scale (16px floor for body) */
+  --fs-body: 1rem;
+  --fs-body-lg: 1.1875rem;   /* 19px */
+  --fs-lead: 1.3125rem;      /* 21px */
+  --fs-ui: 1.4375rem;        /* 23px */
+  --fs-small: 0.8125rem;     /* 13px */
+  --fs-small-ui: 0.8125rem;
+  --fs-h1: clamp(2.25rem, 5vw, 3rem);
+  --fs-h2: 1.5rem;
+  --fs-h3: 1.8125rem;        /* 29px */
+  --fs-display: 3rem;        /* 48px */
+  --fs-eyebrow: 0.75rem;
+
+  /* Spacing */
+  --space-inline: 2rem;
+  --space-section-y: 7.5rem; /* 120px */
+  --space-section-y-sm: 4.5rem;
+
+  /* Surfaces on dark backgrounds */
+  --on-dark-muted: rgba(255, 255, 255, 0.45);
+  --on-dark-subtle: rgba(255, 255, 255, 0.28);
+  --on-dark-panel: rgba(255, 255, 255, 0.04);
+  --on-dark-border: rgba(255, 255, 255, 0.07);
+}

@@ -1,0 +1,20 @@
+/* Admin dashboard overrides */
+.admin-topbar-kicker { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); }
+.admin-portal-note { font-size: 15px; color: var(--text-mid); line-height: 1.55; margin-bottom: 20px; }
+body.db-theme-admin .db-content .db-form { max-width: none; }
+body.db-theme-admin .db-content .db-card { width: 100%; }
+.admin-amount-note { background: var(--cream); border: 1px solid var(--cream-dark); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 20px; font-size: 14px; color: var(--text-mid); line-height: 1.55; }
+.admin-amount-note strong { color: var(--text-dark); }
+.admin-market-edit { padding: 20px; background: var(--cream); border-top: 1px solid var(--cream-dark); }
+.admin-market-edit .db-form { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; align-items: end; }
+.admin-market-edit .db-form-submit { grid-column: 1 / -1; justify-self: start; }
+.db-nav-collapse-head { display: flex; align-items: center; gap: 4px; padding: 0 6px 4px; }
+.db-nav-collapse-toggle { flex-shrink: 0; width: 28px; height: 28px; border: none; border-radius: 6px; background: transparent; color: var(--sidebar-text-muted); cursor: pointer; font-size: 18px; font-weight: 600; line-height: 1; display: inline-flex; align-items: center; justify-content: center; }
+.db-nav-collapse-toggle:hover { background: var(--sidebar-bg-hover); color: var(--sidebar-text); }
+.db-nav-collapse-icon { display: block; width: 14px; text-align: center; }
+.db-nav-collapse-label { flex: 1; font-size: var(--fs-body); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sidebar-nav-label); text-decoration: none; padding: 4px 4px 4px 0; min-width: 0; }
+a.db-nav-collapse-label:hover { color: var(--sidebar-text); }
+a.db-nav-collapse-label.is-active { color: var(--sidebar-text); }
+.db-nav-collapse-panel.is-collapsed { display: none; }
+body.db-sidebar-collapsed .db-nav-collapse-head,
+body.db-sidebar-collapsed .db-nav-collapse-panel { display: none; }

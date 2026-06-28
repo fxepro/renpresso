@@ -1,0 +1,20 @@
+name: Deploy to Laravel Cloud
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:         # allow manual trigger from GitHub UI
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Laravel Cloud
+        run: |
+          curl --fail --silent --show-error \
+            -X POST "${{ secrets.LARAVEL_CLOUD_DEPLOY_HOOK }}&commit_hash=${{ github.sha }}"
