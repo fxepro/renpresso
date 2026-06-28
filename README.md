@@ -67,6 +67,69 @@ php artisan serve
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [docs/MIGRATION.md](docs/MIGRATION.md).
 
-## Deploy
+## Deploy (Railway)
 
-Same Railway/Docker setup as RentersMaxx — point deploy root to this directory when cutting over.
+Repo: [github.com/xmash/renpresso](https://github.com/xmash/renpresso)
+
+### 1. Create project
+
+1. Open [Railway](https://railway.com) → **New Project** → **Deploy from GitHub repo** → select `xmash/renpresso`.
+2. Railway uses the root `Dockerfile` and `railway.json` (health check: `/up`).
+
+### 2. Add PostgreSQL
+
+1. In the project: **+ New** → **Database** → **PostgreSQL**.
+2. On the **web service** → **Variables** → **Add variable reference** → link Postgres `DATABASE_URL` (or individual `PG*` vars).
+
+### 3. Redis (optional)
+
+Add **Redis** for cache/session/queue, or use file drivers (see `.env.example` commented block).
+
+If using Redis, reference `REDIS_URL` from the Redis service.
+
+### 4. Required variables (web service)
+
+Set on the **Renpresso web service** (generate key locally: `php artisan key:generate --show`):
+
+| Variable | Example |
+|----------|---------|
+| `APP_KEY` | `base64:...` |
+| `APP_ENV` | `production` |
+| `APP_DEBUG` | `false` |
+| `APP_URL` | `https://your-service.up.railway.app` |
+| `DB_CONNECTION` | `pgsql` |
+
+If not using `DATABASE_URL` reference: set `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` from Postgres.
+
+**Without Redis** (minimal):
+
+```
+CACHE_STORE=file
+SESSION_DRIVER=file
+QUEUE_CONNECTION=sync
+```
+
+**With Redis** (recommended):
+
+```
+CACHE_STORE=redis
+SESSION_DRIVER=redis
+QUEUE_CONNECTION=redis
+REDIS_CLIENT=phpredis
+```
+
+Plus Redis host/password from the Redis plugin.
+
+### 5. Deploy
+
+Push to `main` — Railway redeploys automatically. First deploy runs migrations via `docker/entrypoint.sh`.
+
+### CLI (optional)
+
+```bash
+railway login
+railway link
+railway up
+```
+
+Same Railway/Docker setup as the legacy RentersMaxx stack — deploy root is this repo.

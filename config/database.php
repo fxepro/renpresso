@@ -14,11 +14,11 @@ return [
 
         'pgsql' => [
             'driver'         => 'pgsql',
-            'url'            => env('DB_URL'),
+            'url'            => env('DB_URL', env('DATABASE_URL')),
             'host'           => env('DB_HOST', '127.0.0.1'),
             'port'           => env('DB_PORT', '5432'),
-            'database'       => env('DB_DATABASE', 'rentersmaxx'),
-            'username'       => env('DB_USERNAME', 'rentersmaxx'),
+            'database'       => env('DB_DATABASE', 'renpresso'),
+            'username'       => env('DB_USERNAME', 'postgres'),
             'password'       => env('DB_PASSWORD', ''),
             'charset'        => 'utf8',
             'prefix'         => '',
@@ -37,7 +37,7 @@ return [
         'client'  => env('REDIS_CLIENT', 'phpredis'),
         'options' => [
             'cluster'    => env('REDIS_CLUSTER', 'redis'),
-            'prefix'     => env('REDIS_PREFIX', 'rentersmaxx_'),
+            'prefix'     => env('REDIS_PREFIX', 'renpresso_'),
         ],
         'default' => [
             'url'      => env('REDIS_URL'),
