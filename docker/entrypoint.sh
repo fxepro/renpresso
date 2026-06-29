@@ -9,6 +9,12 @@ if [ -z "${APP_KEY:-}" ]; then
   exit 1
 fi
 
+if printf '%s' "${APP_URL:-}" | grep -qE '\$\{\{|\$\{'; then
+  echo "ERROR: APP_URL looks like an unexpanded Railway template (${APP_URL})."
+  echo "       Set APP_URL to a literal URL, e.g. https://renpresso.com"
+  exit 1
+fi
+
 # Without a Redis service, redis session/cache drivers cause 500 on every web route (/up still works).
 if [ -z "${REDIS_URL:-}" ]; then
   echo "==> No REDIS_URL — forcing file cache/session and sync queue"

@@ -1,12 +1,14 @@
 <?php
 
+use App\Support\AppUrl;
 use Illuminate\Support\Facades\Facade;
 
 return [
     'name'            => env('APP_NAME', 'Renpresso'),
     'env'             => env('APP_ENV', 'production'),
     'debug'           => (bool) env('APP_DEBUG', false),
-    'url'             => env('APP_URL', 'http://localhost'),
+    // Must be a valid http(s) URL — artisan bootstraps a console Request from this value.
+    'url'             => AppUrl::normalize(env('APP_URL'), env('APP_ALLOWED_HOSTS')),
     'timezone'        => env('APP_TIMEZONE', 'UTC'),
     'locale'          => env('APP_LOCALE', 'en'),
     'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),

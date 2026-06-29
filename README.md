@@ -148,6 +148,8 @@ Set on the **Renpresso web service** (generate key locally: `php artisan key:gen
 | `APP_ALLOWED_HOSTS` | `renpresso.com,www.renpresso.com,renpresso-production.up.railway.app` |
 
 With DNS live, keep **`APP_URL=https://renpresso.com`**. Add **`APP_ALLOWED_HOSTS`** so the app also works on the Railway hostname (forms, redirects, login use whichever host you opened).
+
+**Important:** `APP_URL` must be a **literal** `https://…` URL — not a Railway `${{…}}` reference. Hostnames only in `APP_ALLOWED_HOSTS` (no `https://` prefix). A bad `APP_URL` breaks container boot (`Invalid URI: Host is malformed` during `php artisan optimize`).
 | `DB_CONNECTION` | `pgsql` |
 
 PostgreSQL: see **§2 PostgreSQL** above (`DATABASE_PRIVATE_URL` or `DB_*` references). Do not leave `DB_HOST=127.0.0.1`.

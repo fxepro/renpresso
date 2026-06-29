@@ -1,5 +1,6 @@
 <?php
 namespace App\Providers;
+use App\Support\AppUrl;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -53,21 +54,16 @@ class AppServiceProvider extends ServiceProvider
     /** @return list<string> */
     private function allowedAppHosts(): array
     {
-        $fromEnv = array_filter(array_map(
-            static fn (string $h): string => strtolower(trim($h)),
-            explode(',', (string) env('APP_ALLOWED_HOSTS', ''))
-        ));
+        $fromEnv = AppUrl::parseAllowedHosts(env('APP_ALLOWED_HOSTS'));
 
         if ($fromEnv !== []) {
-            return array_values(array_unique($fromEnv));
+            return $fromEnv;
         }
 
         $hosts = [];
         foreach ([config('app.url'), env('APP_RAILWAY_URL')] as $url) {
-            if (! is_string($url) || $url === '') {
-                continue;
-            }
-            $parsed = parse_url($url, PHP_URL_HOST);
+            $normalized = AppUrl::normalize(is_string($url) ? $url : null);
+            $parsed = parse_url($normalized, PHP_URL_HOST);
             if (is_string($parsed) && $parsed !== '') {
                 $hosts[] = strtolower($parsed);
             }
