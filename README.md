@@ -77,10 +77,57 @@ Mirror: [github.com/xmash/renpresso](https://github.com/xmash/renpresso)
 1. Open [Railway](https://railway.com) → **New Project** → **Deploy from GitHub repo** → select **`fxepro/renpresso`**.
 2. Railway uses the root `Dockerfile` and `railway.json` (health check: `/up`).
 
-### 2. Add PostgreSQL
+### 2. PostgreSQL (web service variables)
 
-1. In the project: **+ New** → **Database** → **PostgreSQL**.
-2. On the **web service** → **Variables** → **Add variable reference** → link Postgres `DATABASE_URL` (or individual `PG*` vars).
+Open your **app/web service** (not the Postgres service) → **Variables**.
+
+Set **`DB_CONNECTION`** manually (plain text, not a reference):
+
+```
+DB_CONNECTION=pgsql
+```
+
+Then use **one** of the two options below — not both mixed incorrectly.
+
+#### Option A — one URL (simplest)
+
+| Variable on web service | How to set |
+|---------------------------|------------|
+| `DATABASE_URL` | **Add variable reference** → select **Postgres** service → **`DATABASE_PRIVATE_URL`** (preferred, same Railway project) or **`DATABASE_URL`** |
+
+Do **not** set `DB_HOST`, `DB_PORT`, etc. when using a URL.
+
+#### Option B — individual fields (Railway `PG*` → Laravel `DB_*`)
+
+Railway Postgres exposes **`PGHOST`**, **`PGPORT`**, **`PGUSER`**, **`PGPASSWORD`**, **`PGDATABASE`** on the database service. The app does **not** see them until you **reference** each one on the web service.
+
+On the **web service**, add **variable references** (name left column = what Laravel reads, value = reference to Postgres):
+
+| Variable name (web service) | Reference from Postgres service |
+|-----------------------------|----------------------------------|
+| `DB_HOST` | `PGHOST` |
+| `DB_PORT` | `PGPORT` |
+| `DB_DATABASE` | `PGDATABASE` |
+| `DB_USERNAME` | `PGUSER` |
+| `DB_PASSWORD` | `PGPASSWORD` |
+
+In Railway UI: **Variables** → **+ New Variable** → **Variable Reference** → Service: **Postgres** → pick the column on the right.
+
+Also set (plain text on web service):
+
+```
+DB_CONNECTION=pgsql
+```
+
+Do **not** set `DATABASE_URL` or `DATABASE_PRIVATE_URL` when using individual `DB_*` refs (remove them if present).
+
+The app also accepts **`PGHOST`** etc. directly if you reference those names on the web service instead of `DB_*` (see `config/database.php`).
+
+#### If connection still fails
+
+- Use **`DATABASE_PRIVATE_URL`** (internal), not `DATABASE_PUBLIC_URL`, for app + DB in the same project.
+- Try adding: `DB_SSLMODE=require` (some public Postgres endpoints need SSL).
+- Redeploy after changing variables (`php artisan config:clear` runs via container rebuild).
 
 ### 3. Redis (optional)
 
@@ -97,12 +144,15 @@ Set on the **Renpresso web service** (generate key locally: `php artisan key:gen
 | `APP_KEY` | `base64:...` |
 | `APP_ENV` | `production` |
 | `APP_DEBUG` | `false` |
-| `APP_URL` | `https://your-service.up.railway.app` |
+| `APP_URL` | `https://renpresso.com` (canonical — emails, default links) |
+| `APP_ALLOWED_HOSTS` | `renpresso.com,www.renpresso.com,renpresso-production.up.railway.app` |
+
+With DNS live, keep **`APP_URL=https://renpresso.com`**. Add **`APP_ALLOWED_HOSTS`** so the app also works on the Railway hostname (forms, redirects, login use whichever host you opened).
 | `DB_CONNECTION` | `pgsql` |
 
-If not using `DATABASE_URL` reference: set `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` from Postgres.
+PostgreSQL: see **§2 PostgreSQL** above (`DATABASE_PRIVATE_URL` or `DB_*` references). Do not leave `DB_HOST=127.0.0.1`.
 
-**Without Redis** (minimal):
+**Without Redis** (default — required unless you add a Redis service):
 
 ```
 CACHE_STORE=file
@@ -110,7 +160,10 @@ SESSION_DRIVER=file
 QUEUE_CONNECTION=sync
 ```
 
-**With Redis** (recommended):
+If these are missing and `REDIS_URL` is not set, `docker/entrypoint.sh` sets them automatically on boot.  
+Symptom when misconfigured: **`/up` returns 200 but every other page returns 500** (Redis connection failure).
+
+**With Redis** (optional):
 
 ```
 CACHE_STORE=redis
@@ -124,6 +177,23 @@ Plus Redis host/password from the Redis plugin.
 ### 5. Deploy
 
 Push to `main` — Railway redeploys automatically. First deploy runs migrations via `docker/entrypoint.sh`.
+
+**Database is empty after first deploy** — migrations create tables but do not load demo data. To populate the public listings directory:
+
+```bash
+railway login
+railway link
+railway run php artisan db:seed --class=PublicListingSeeder --force
+```
+
+This adds sample **public** US listings (safe to re-run; skips duplicates). Full local demo data:
+
+```bash
+php artisan db:seed --force
+php artisan db:seed --class=MultiUnitDemoSeeder --force
+```
+
+Real signups, waitlist entries, and landlord-created properties appear only after users use the live site — they are not copied from your local machine.
 
 ### CLI (optional)
 

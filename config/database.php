@@ -14,17 +14,20 @@ return [
 
         'pgsql' => [
             'driver'         => 'pgsql',
-            'url'            => env('DB_URL', env('DATABASE_URL')),
-            'host'           => env('DB_HOST', '127.0.0.1'),
-            'port'           => env('DB_PORT', '5432'),
-            'database'       => env('DB_DATABASE', 'renpresso'),
-            'username'       => env('DB_USERNAME', 'postgres'),
-            'password'       => env('DB_PASSWORD', ''),
+            // Railway: use DATABASE_URL / DATABASE_PRIVATE_URL, or PG* / DB_* (see README).
+            'url'            => env('DB_URL')
+                ?: env('DATABASE_URL')
+                ?: env('DATABASE_PRIVATE_URL'),
+            'host'           => env('DB_HOST', env('PGHOST', '127.0.0.1')),
+            'port'           => env('DB_PORT', env('PGPORT', '5432')),
+            'database'       => env('DB_DATABASE', env('PGDATABASE', 'railway')),
+            'username'       => env('DB_USERNAME', env('PGUSER', 'postgres')),
+            'password'       => env('DB_PASSWORD', env('PGPASSWORD', '')),
             'charset'        => 'utf8',
             'prefix'         => '',
             'prefix_indexes' => true,
             'search_path'    => 'public',
-            'sslmode'        => 'prefer',
+            'sslmode'        => env('DB_SSLMODE', 'prefer'),
         ],
     ],
 
