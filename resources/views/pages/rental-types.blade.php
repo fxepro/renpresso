@@ -32,7 +32,7 @@
     <div class="reveal section-header">
       <p class="section-label">Long-term rentals</p>
       <h2 class="section-title">Annual leases. Monthly rent. Full lifecycle.</h2>
-      <p class="section-sub">The default model for US landlords — single-family homes, condos, and small multi-unit buildings. ACH collection, lease documents, maintenance, and tax exports in one place.</p>
+      <p class="section-sub">The default model for independent landlords — single-family homes, condos, and small multi-unit buildings. ACH collection, lease documents, maintenance, and tax exports in one place.</p>
     </div>
 
     <div class="rental-type-cards reveal">

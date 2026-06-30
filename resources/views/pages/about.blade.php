@@ -1,14 +1,14 @@
 @extends('layouts.marketing', ['page' => 'about'])
 
 @section('title', 'About us')
-@section('meta_description', 'Renpresso is property management software built for US landlords — rent collection, maintenance, documents, and tax-ready exports.')
+@section('meta_description', 'Renpresso is property management software for independent landlords — rent collection, maintenance, documents, and tax-ready exports.')
 
 @section('content')
 
 @include('partials.sections.marketing-hero', [
   'label' => 'About',
   'title' => 'Built for landlords<br>who do it themselves.',
-  'lead' => config('app.name') . ' is property management software for independent US landlords — not enterprise property managers, not real estate investment firms. Just you and your units.',
+  'lead' => config('app.name') . ' is property management software for independent landlords — not enterprise property managers, not real estate investment firms. Just you and your units.',
   'ctas' => [
     ['href' => url('/waitlist'), 'label' => 'Join the waitlist', 'class' => 'rm-btn rm-btn-primary btn-lg'],
     ['href' => url('/how-it-works'), 'label' => 'See how it works', 'class' => 'btn-outline-light'],

@@ -1,4 +1,4 @@
-@extends('layouts.marketing', ['page' => 'register'])
+@extends('layouts.onboarding', ['page' => 'register'])
 
 @section('title', 'Create your account')
 @section('meta_description', 'Create your Renpresso landlord account and tell us about your portfolio.')

@@ -1,7 +1,7 @@
-@extends('layouts.marketing', ['page' => 'waitlist'])
+@extends('layouts.onboarding', ['page' => 'waitlist'])
 
 @section('title', 'Join the waitlist')
-@section('meta_description', 'Join the Renpresso waitlist for early access. Launching first in the United States.')
+@section('meta_description', 'Join the Renpresso waitlist for early access to rent collection and portfolio management.')
 
 @section('content')
 

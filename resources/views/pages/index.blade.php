@@ -1,7 +1,7 @@
 @extends('layouts.marketing', ['page' => 'home'])
 
 @section('title', config('site.tagline'))
-@section('meta_description', 'Property management for US landlords. Collect rent via ACH, track every unit, and export tax-ready reports — with support for additional markets as you grow.')
+@section('meta_description', 'Property management for independent landlords. Collect rent via ACH, track every unit, and export tax-ready reports — with support for multiple markets as you grow.')
 
 @section('content')
 
@@ -10,7 +10,7 @@
   <div class="hero-glow"></div>
   <div class="hero-badge"><span class="hero-badge-dot"></span>Now accepting early access applications</div>
   <h1>Collect rent <em>reliably.</em><br>Manage every unit.</h1>
-  <p class="hero-sub">Built for US landlords first. Tenants pay by ACH or card. You get a clear dashboard, automated reminders, and tax-ready exports — without juggling spreadsheets.</p>
+  <p class="hero-sub">Tenants pay by ACH or card. You get a clear dashboard, automated reminders, and tax-ready exports — without juggling spreadsheets.</p>
   <div class="hero-ctas">
     <a href="{{ url('/waitlist') }}" class="rm-btn rm-btn-primary btn-lg">Join the waitlist</a>
     <a href="{{ url('/how-it-works') }}" class="btn-outline-light">See how it works</a>
@@ -46,7 +46,7 @@
         <blockquote class="problem-quote">"You own five units across two states. You're juggling bank alerts, a spreadsheet, and a patient accountant."</blockquote>
       </div>
       <div>
-        <p class="lead-muted">US landlords deserve better tools. Until now, the options were too basic or too enterprise.</p>
+        <p class="lead-muted">Independent landlords deserve better tools. Until now, the options were too basic or too enterprise.</p>
         <ul class="problem-list">
           <li><span class="prob-icon">😤</span>Chasing rent by text and email every month</li>
           <li><span class="prob-icon">📊</span>Reconciling payments manually in a spreadsheet</li>
@@ -141,11 +141,11 @@
   <div class="container">
     <div class="reveal section-header">
       <p class="section-label">Supported markets</p>
-      <h2 class="section-title">Built for US landlords. Ready to scale.</h2>
-      <p class="section-sub">Start with your US portfolio. Add more units and markets as you grow. <a href="{{ url('/countries') }}" class="link-terra">See supported markets →</a></p>
+      <h2 class="section-title">One app. Every market.</h2>
+      <p class="section-sub">Collect rent locally, see everything in one dashboard, and add markets as you grow. <a href="{{ url('/countries') }}" class="link-terra">See supported markets →</a></p>
     </div>
     <div class="country-grid reveal">
-      <div class="country-card"><p class="country-region">Primary market</p><div class="country-flags">🇺🇸</div><h4>United States</h4><p>All 50 states — single-family to small portfolios</p><span class="country-method">ACH · Card</span></div>
+      <div class="country-card"><p class="country-region">Americas</p><div class="country-flags">🇺🇸</div><h4>United States</h4><p>All 50 states — single-family to small portfolios</p><span class="country-method">ACH · Card</span></div>
       <div class="country-card"><p class="country-region">North America</p><div class="country-flags">🇨🇦</div><h4>Canada</h4><p>Provinces nationwide</p><span class="country-method">EFT · Bank</span></div>
       <div class="country-card"><p class="country-region">Western Europe</p><div class="country-flags">🇬🇧 🇫🇷 🇩🇪</div><h4>UK &amp; EU</h4><p>Major markets for landlords with overseas units</p><span class="country-method">Bank transfer</span></div>
       <div class="country-card"><p class="country-region">Pacific</p><div class="country-flags">🇦🇺 🇳🇿</div><h4>Australia &amp; NZ</h4><p>Residential rentals</p><span class="country-method">Bank · Direct debit</span></div>

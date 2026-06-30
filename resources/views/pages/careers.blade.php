@@ -1,7 +1,7 @@
 @extends('layouts.marketing', ['page' => 'careers'])
 
 @section('title', 'Careers')
-@section('meta_description', 'Join the Renpresso team — building rent collection software for US landlords.')
+@section('meta_description', 'Join the Renpresso team — building rent collection software for independent landlords.')
 
 @section('content')
 

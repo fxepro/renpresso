@@ -14,6 +14,7 @@
 </head>
 <body @class([
   'auth-page' => $authPage ?? false,
+  'onboarding-page' => $onboardingPage ?? false,
 ])>
 
 @include('partials.rm-toast')
@@ -23,7 +24,7 @@
 
 <main @class([
   'page-main',
-  'page-main--auth' => $authPage ?? false,
+  'page-main--auth' => ($authPage ?? false) || ($onboardingPage ?? false),
 ])>
   @hasSection('page-header')
     @yield('page-header')
@@ -38,7 +39,7 @@
   @include('partials.layout.site-footer', ['page' => $page ?? ''])
 @endunless
 
-@unless($authPage ?? false)
+@unless(($authPage ?? false) || ($onboardingPage ?? false))
   @include('partials.layout.cookie-banner')
 @endunless
 

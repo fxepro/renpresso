@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     /** Use the incoming host when it is allowed (custom domain + Railway URL). */
     private function forceRootUrlForAllowedHost(): void
     {
-        if (app()->runningInConsole()) {
+        if (app()->runningInConsole() || app()->environment('local')) {
             return;
         }
 
@@ -48,7 +48,8 @@ class AppServiceProvider extends ServiceProvider
             return;
         }
 
-        URL::forceRootUrl('https://'.$host);
+        // Preserve non-standard ports (e.g. artisan serve); do not hardcode https://host only.
+        URL::forceRootUrl($request->getSchemeAndHttpHost());
     }
 
     /** @return list<string> */

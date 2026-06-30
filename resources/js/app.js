@@ -105,6 +105,49 @@
   }
 })();
 
+// ── FEATURE VIEW SWITCHER (/features) ──
+(function () {
+  const root = document.getElementById('featureSwitcher');
+  if (!root) return;
+
+  const tabs = root.querySelectorAll('[data-feature-view]');
+  const panels = {
+    landlord: document.getElementById('featureLandlord'),
+    tenant: document.getElementById('featureTenant'),
+  };
+
+  function activate(view) {
+    if (!panels[view]) return;
+
+    tabs.forEach(tab => {
+      const on = tab.dataset.featureView === view;
+      tab.classList.toggle('active', on);
+      tab.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+
+    Object.entries(panels).forEach(([key, panel]) => {
+      if (panel) panel.hidden = key !== view;
+    });
+
+    panels[view].querySelectorAll('.reveal:not(.visible)').forEach(el => {
+      el.classList.add('visible');
+    });
+
+    if (history.replaceState) {
+      history.replaceState(null, '', '#' + view);
+    }
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => activate(tab.dataset.featureView));
+  });
+
+  const hash = location.hash.replace('#', '');
+  if (hash && panels[hash]) {
+    activate(hash);
+  }
+})();
+
 // ── FAQ ACCORDION ──
 (function () {
   document.querySelectorAll('.faq-q').forEach(btn => {

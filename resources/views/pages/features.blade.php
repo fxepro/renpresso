@@ -1,7 +1,7 @@
 @extends('layouts.marketing', ['page' => 'features'])
 
 @section('title', 'Features')
-@section('meta_description', 'Everything US landlords need — rent collection, maintenance, documents, tax export, and more for your portfolio.')
+@section('meta_description', 'Everything independent landlords need — rent collection, maintenance, documents, tax export, and more for your portfolio.')
 
 @section('content')
 
@@ -15,20 +15,18 @@
   ],
 ])
 
-<!-- ══ STICKY TOGGLE ══ -->
-<div class="feature-toggle" id="featureToggle">
-  <div class="toggle-inner">
-    <span class="toggle-label">Viewing features for:</span>
-    <div class="toggle-tabs">
-      <button class="toggle-tab active" id="tabLandlord" onclick="switchView('landlord')">🏠 Landlord</button>
-      <button class="toggle-tab" id="tabTenant" onclick="switchView('tenant')">👤 Tenant</button>
+<!-- ══ LANDLORD / TENANT SWITCHER ══ -->
+<div class="type-switcher" id="featureSwitcher" role="tablist" aria-label="Feature view">
+  <div class="container">
+    <div class="type-switcher__track type-switcher__track--2">
+      <button type="button" class="type-switcher__tab active" role="tab" aria-selected="true" data-feature-view="landlord">Landlord</button>
+      <button type="button" class="type-switcher__tab" role="tab" aria-selected="false" data-feature-view="tenant">Tenant</button>
     </div>
-    <span class="toggle-count"><span id="featCount">12</span> features in this view</span>
   </div>
 </div>
 
 <!-- ══ LANDLORD FEATURES ══ -->
-<section class="landlord-section" id="landlordSection" id="collection">
+<section class="landlord-section feature-view-section" id="featureLandlord">
   <div class="container">
 
     <div class="reveal" style="margin-bottom: 48px;">
@@ -195,9 +193,38 @@
       <div class="feat-visual-pane">
         <div class="doc-widget">
           <div class="doc-header">📁 Austin — Oak Street</div>
-          <div class="doc-item"><span class="doc-icon">📄</span><div><div class="doc-name">Signed lease agreement</div><div class="doc-meta">PDF · 2.4 MB · Jun 2025</div></div><a href="#" class="doc-link">Share →</a></div>
-          <div class="doc-item"><span class="doc-icon">🏠</span><div><div class="doc-name">Move-in inspection report</div><div class="doc-meta">PDF · 8.1 MB · Jun 2025</div></div><a href="#" class="doc-link">Share →</a></div>
-          <div class="doc-item"><span class="doc-icon">🛡️</span><div><div class="doc-name">Building insurance certificate</div><div class="doc-meta">PDF · 1.2 MB · Jan 2025</div></div><a href="#" class="doc-link">Share →</a></div>
+          <div class="doc-list">
+            <div class="doc-item">
+              <div class="doc-item-row">
+                <span class="doc-icon" aria-hidden="true">📄</span>
+                <div class="doc-item-body">
+                  <div class="doc-name">Signed lease agreement</div>
+                  <div class="doc-meta">PDF · 2.4 MB · Jun 2025</div>
+                </div>
+                <a href="#" class="doc-link">Share →</a>
+              </div>
+            </div>
+            <div class="doc-item">
+              <div class="doc-item-row">
+                <span class="doc-icon" aria-hidden="true">🏠</span>
+                <div class="doc-item-body">
+                  <div class="doc-name">Move-in inspection report</div>
+                  <div class="doc-meta">PDF · 8.1 MB · Jun 2025</div>
+                </div>
+                <a href="#" class="doc-link">Share →</a>
+              </div>
+            </div>
+            <div class="doc-item">
+              <div class="doc-item-row">
+                <span class="doc-icon" aria-hidden="true">🛡️</span>
+                <div class="doc-item-body">
+                  <div class="doc-name">Building insurance certificate</div>
+                  <div class="doc-meta">PDF · 1.2 MB · Jan 2025</div>
+                </div>
+                <a href="#" class="doc-link">Share →</a>
+              </div>
+            </div>
+          </div>
           <div class="doc-secure">🔒 Shared links expire after 15 minutes</div>
         </div>
       </div>
@@ -218,19 +245,25 @@
         </ul>
       </div>
       <div class="feat-visual-pane dark">
-        <div class="msg-widget" style="background:var(--navy-mid)">
-          <div style="font-size:19px;font-weight:500;color:rgba(255,255,255,0.6);margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.07);">📤 Tax export — FY 2025</div>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);">
-              <div><div style="font-size:19px;font-weight:500;color:rgba(255,255,255,0.8);">🇺🇸 Austin — Oak Street</div><div style="font-size:23px;color:rgba(255,255,255,0.3);margin-top:2px;">12 payments · $28,800 total</div></div>
-              <span style="font-size:21px;color:var(--terra-light);font-weight:500;">CSV + PDF</span>
+        <div class="tax-export-widget">
+          <div class="tax-export-header">📤 Tax export — FY 2025</div>
+          <div class="tax-export-list">
+            <div class="tax-export-item">
+              <div class="tax-export-item-body">
+                <div class="tax-export-property">🇺🇸 Austin — Oak Street</div>
+                <div class="tax-export-meta">12 payments · $28,800 total</div>
+              </div>
+              <span class="tax-export-format">CSV + PDF</span>
             </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);">
-              <div><div style="font-size:19px;font-weight:500;color:rgba(255,255,255,0.8);">🇺🇸 Denver — Pine Ave</div><div style="font-size:23px;color:rgba(255,255,255,0.3);margin-top:2px;">12 payments · $22,200 total</div></div>
-              <span style="font-size:21px;color:var(--terra-light);font-weight:500;">CSV + PDF</span>
+            <div class="tax-export-item">
+              <div class="tax-export-item-body">
+                <div class="tax-export-property">🇺🇸 Denver — Pine Ave</div>
+                <div class="tax-export-meta">12 payments · $22,200 total</div>
+              </div>
+              <span class="tax-export-format">CSV + PDF</span>
             </div>
-            <div style="padding:10px 14px;border-radius:10px;background:rgba(42,107,74,0.15);border:1px solid rgba(42,107,74,0.25);font-size:21px;color:rgba(255,255,255,0.6);">✓ Complete payment history · Schedule E-ready export included</div>
           </div>
+          <div class="tax-export-note">✓ Complete payment history · Schedule E-ready export included</div>
         </div>
       </div>
     </div>
@@ -264,7 +297,7 @@
 </section>
 
 <!-- ══ TENANT FEATURES ══ -->
-<section class="tenant-section" id="tenantSection" style="display:block" id="tenant">
+<section class="tenant-section feature-view-section" id="featureTenant" hidden>
   <div class="container">
     <div class="reveal">
       <p class="section-label">Tenant features</p>
@@ -410,49 +443,3 @@
   </div>
 </section>
 @endsection
-
-@push('scripts')
-<script>
-// ── LANDLORD / TENANT TOGGLE ──
-function switchView(view) {
-  const landlord = document.getElementById('landlordSection');
-  const tenant   = document.getElementById('tenantSection');
-  const tabL     = document.getElementById('tabLandlord');
-  const tabT     = document.getElementById('tabTenant');
-  const count    = document.getElementById('featCount');
-
-  if (view === 'landlord') {
-    landlord.style.display = 'block';
-    tenant.style.display   = 'block';
-    tabL.classList.add('active');
-    tabT.classList.remove('active');
-    count.textContent = '12';
-    landlord.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    landlord.style.display = 'none';
-    tenant.style.display   = 'block';
-    tabL.classList.remove('active');
-    tabT.classList.add('active');
-    count.textContent = '9';
-    tenant.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-}
-
-// ── SCROLL REVEAL ──
-const observer = new IntersectionObserver(
-  entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
-  { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-);
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// ── WAITLIST ──
-function rmWaitlist(e) {
-  e.preventDefault();
-  const email = document.getElementById('rmEmail').value;
-  const note  = document.getElementById('rmWaitlistNote');
-  note.textContent = `✓ You're on the list — we'll reach out to ${email} soon.`;
-  note.style.color = 'rgba(255,255,255,0.88)';
-  document.getElementById('rmEmail').value = '';
-}
-</script>
-@endpush

@@ -1,7 +1,7 @@
 @extends('layouts.marketing', ['page' => 'pricing'])
 
 @section('title', 'Pricing')
-@section('meta_description', 'Simple, transparent pricing for US landlords. First month free. $9 per unit per month after that. No setup fees, no contracts.')
+@section('meta_description', 'Simple, transparent pricing for independent landlords. First month free. $9 per unit per month after that. No setup fees, no contracts.')
 
 @section('content')
 
@@ -10,6 +10,15 @@
   'title' => 'Start free.<br><em>Scale simply.</em>',
   'lead' => 'First property free for one month. Pay per unit from the second. No setup fees, no contracts, no surprises.',
 ])
+
+<div class="pricing-caveat">
+  <div class="container">
+    <div class="pricing-caveat__text">
+      <p>Pricing varies by country, currency, payment method, and other account parameters.</p>
+      <p>The plans below are illustrative — your actual rate may differ.</p>
+    </div>
+  </div>
+</div>
 
 @include('partials.sections.pricing-band', [
   'sectionClass' => 'pricing-section',
@@ -238,7 +247,7 @@
     <div class="reveal">
       <p class="section-label">How we compare</p>
       <h2 class="section-title">Built for landlords<br>nobody else serves.</h2>
-      <p class="section-sub">Every competitor either charges enterprise rates or lacks the features independent landlords need. {{ config('app.name') }} is purpose-built for US landlords who want simplicity without sacrificing capability.</p>
+      <p class="section-sub">Every competitor either charges enterprise rates or lacks the features independent landlords need. {{ config('app.name') }} is purpose-built for landlords who want simplicity without sacrificing capability.</p>
     </div>
     @include('partials.sections.comparison-table')
   </div>

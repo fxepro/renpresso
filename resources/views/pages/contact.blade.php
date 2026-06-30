@@ -210,11 +210,11 @@
     <div class="faq-grid">
       <div class="faq-card">
         <h4>When is Renpresso launching?</h4>
-        <p>We're launching first in the United States in 2025. <a href="{{ url('/waitlist') }}">Join the waitlist</a> to be notified when we open in your state.</p>
+        <p>Renpresso is available in the United States and expanding to additional markets. <a href="{{ url('/waitlist') }}">Join the waitlist</a> to be notified when we open in your country.</p>
       </div>
       <div class="faq-card">
         <h4>Do you support my country?</h4>
-        <p>We launch in the United States first. Check the <a href="{{ url('/countries') }}">supported markets page</a> — and if yours isn't listed yet, you can request it directly.</p>
+        <p>Check the <a href="{{ url('/countries') }}">supported markets page</a> for current coverage — and if yours isn't listed yet, you can request it directly.</p>
       </div>
       <div class="faq-card">
         <h4>I'm a property manager — is there an agency plan?</h4>

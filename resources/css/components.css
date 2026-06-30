@@ -11,10 +11,10 @@
   padding-bottom: 4rem;
 }
 
-/* Cancel shell header offset for full-bleed heroes */
-.page-body > .page-hero:first-child,
-.page-body > .hero:first-child,
-.page-body > .waitlist-page:first-child {
+/* Cancel shell header offset for full-bleed heroes (marketing shell with nav only) */
+body:not(.auth-page):not(.onboarding-page) .page-body > .page-hero:first-child,
+body:not(.auth-page):not(.onboarding-page) .page-body > .hero:first-child,
+body:not(.auth-page):not(.onboarding-page) .page-body > .waitlist-page:first-child {
   margin-top: calc(-1 * var(--header-height));
 }
 

@@ -1,14 +1,14 @@
 @extends('layouts.marketing', ['page' => 'countries'])
 
 @section('title', 'Countries')
-@section('meta_description', 'Supported markets for Renpresso — launching first in the United States, with additional markets rolling out over time.')
+@section('meta_description', 'Supported markets for Renpresso — rent collection and property management with local payment methods in each region.')
 
 @section('content')
 
 @include('partials.sections.marketing-hero', [
   'label' => 'Supported markets',
-  'title' => 'US first.<br><em>More markets coming.</em>',
-  'lead' => 'We launch in the United States first. Additional markets roll out over time — each with the right payment method connected automatically.',
+  'title' => 'Global markets.<br><em>Local payments.</em>',
+  'lead' => 'Renpresso supports landlords across multiple regions — each with the right payment method connected automatically. More markets roll out over time.',
 ])
 
 <!-- ══ STAT STRIP ══ -->
@@ -16,7 +16,7 @@
   <div class="stat-strip-inner">
     <div class="stat-item">
       <div class="stat-value">50</div>
-      <div class="stat-label">US states at launch</div>
+      <div class="stat-label">US states supported</div>
     </div>
     <div class="stat-item">
       <div class="stat-value">2</div>
