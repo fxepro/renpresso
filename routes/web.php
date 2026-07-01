@@ -324,6 +324,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/documents/{document}/file', [DocumentFileController::class, 'show'])->name('documents.file');
     // Applications & Background Checks
+    Route::get('/applications', [ApplicationController::class, 'landlordIndex'])->name('applications.index');
+    Route::get('/background-checks', [ApplicationController::class, 'backgroundChecksIndex'])->name('background-checks.index');
     Route::post('/properties/{property}/applications',          [ApplicationController::class, 'store'])->name('applications.store');
     Route::patch('/applications/{application}/status',          [ApplicationController::class, 'updateStatus'])->name('applications.status');
     Route::post('/applications/{application}/background-checks',[ApplicationController::class, 'requestCheck'])->name('background-checks.store');

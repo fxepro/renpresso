@@ -35,4 +35,19 @@ class BackgroundCheck extends Model
             default         => 'grey',
         };
     }
+
+    public function typeLabel(): string
+    {
+        return ucfirst(str_replace('_', ' ', $this->type));
+    }
+
+    public function methodLabel(): string
+    {
+        return ucfirst(str_replace('_', ' ', $this->method));
+    }
+
+    public function statusLabel(): string
+    {
+        return ucfirst(str_replace('_', ' ', $this->status));
+    }
 }

@@ -10,6 +10,89 @@ use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
+    public function landlordIndex(Request $request)
+    {
+        $user = Auth::user();
+        abort_unless($user->isLandlord(), 403);
+
+        $status = $request->query('status');
+        $propertyId = $request->query('property');
+
+        if ($status && ! in_array($status, ['pending', 'reviewing', 'approved', 'rejected'], true)) {
+            $status = null;
+        }
+
+        $baseQuery = Application::query()
+            ->whereHas('property', fn ($q) => $q->where('landlord_id', $user->id));
+
+        $statusCounts = (clone $baseQuery)
+            ->selectRaw('status, count(*) as aggregate')
+            ->groupBy('status')
+            ->pluck('aggregate', 'status');
+
+        $applications = (clone $baseQuery)
+            ->with(['property', 'backgroundChecks'])
+            ->when($status, fn ($q) => $q->where('status', $status))
+            ->when($propertyId, fn ($q) => $q->where('property_id', $propertyId))
+            ->orderByDesc('created_at')
+            ->paginate(25)
+            ->withQueryString();
+
+        $properties = $user->properties()->orderBy('name')->get(['id', 'name', 'country_code']);
+
+        return view('dashboard.applications.index', compact(
+            'applications',
+            'statusCounts',
+            'properties',
+            'status',
+            'propertyId',
+        ));
+    }
+
+    public function backgroundChecksIndex(Request $request)
+    {
+        $user = Auth::user();
+        abort_unless($user->isLandlord(), 403);
+
+        $status = $request->query('status');
+        $propertyId = $request->query('property');
+
+        if ($status && ! in_array($status, ['requested', 'pending', 'passed', 'failed', 'manual_review'], true)) {
+            $status = null;
+        }
+
+        $baseQuery = BackgroundCheck::query()
+            ->whereHas('property', fn ($q) => $q->where('landlord_id', $user->id));
+
+        $statusCounts = (clone $baseQuery)
+            ->selectRaw('status, count(*) as aggregate')
+            ->groupBy('status')
+            ->pluck('aggregate', 'status');
+
+        $checks = (clone $baseQuery)
+            ->with(['property', 'application'])
+            ->when($status, fn ($q) => $q->where('status', $status))
+            ->when($propertyId, fn ($q) => $q->where('property_id', $propertyId))
+            ->orderByDesc('updated_at')
+            ->paginate(25)
+            ->withQueryString();
+
+        $properties = $user->properties()->orderBy('name')->get(['id', 'name', 'country_code']);
+
+        $openChecks = (int) ($statusCounts['pending'] ?? 0)
+            + (int) ($statusCounts['requested'] ?? 0)
+            + (int) ($statusCounts['manual_review'] ?? 0);
+
+        return view('dashboard.background-checks.index', compact(
+            'checks',
+            'statusCounts',
+            'properties',
+            'status',
+            'propertyId',
+            'openChecks',
+        ));
+    }
+
     public function store(Request $request, Property $property)
     {
         $this->authorize('view', $property);

@@ -56,6 +56,24 @@
       <a href="{{ route('tenants.index') }}" class="db-nav-item {{ request()->routeIs('tenants.*') ? 'active' : '' }}">
         <span class="ni">👥</span><span class="db-nav-txt">Tenants</span>
       </a>
+      @php
+        $pendingApplications = \App\Models\Application::query()
+          ->whereHas('property', fn ($q) => $q->where('landlord_id', auth()->id()))
+          ->whereIn('status', ['pending', 'reviewing'])
+          ->count();
+        $openBackgroundChecks = \App\Models\BackgroundCheck::query()
+          ->whereHas('property', fn ($q) => $q->where('landlord_id', auth()->id()))
+          ->whereIn('status', ['requested', 'pending', 'manual_review'])
+          ->count();
+      @endphp
+      <a href="{{ route('applications.index') }}" class="db-nav-item {{ request()->routeIs('applications.index') ? 'active' : '' }}">
+        <span class="ni">📋</span><span class="db-nav-txt">Applications</span>
+        @if($pendingApplications > 0)<span class="db-nav-badge">{{ $pendingApplications }}</span>@endif
+      </a>
+      <a href="{{ route('background-checks.index') }}" class="db-nav-item {{ request()->routeIs('background-checks.index') ? 'active' : '' }}">
+        <span class="ni">🔍</span><span class="db-nav-txt">Background checks</span>
+        @if($openBackgroundChecks > 0)<span class="db-nav-badge">{{ $openBackgroundChecks }}</span>@endif
+      </a>
       <a href="{{ route('documents.index') }}" class="db-nav-item {{ request()->routeIs('documents.*') || request()->routeIs('lease-templates.*') ? 'active' : '' }}">
         <span class="ni">📁</span><span class="db-nav-txt">Documents</span>
       </a>

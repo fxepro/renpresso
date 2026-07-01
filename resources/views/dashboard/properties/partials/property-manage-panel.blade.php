@@ -1733,11 +1733,22 @@ document.getElementById('panelSaveBtn')?.addEventListener('click', panelSaveClic
 (function restorePropertyPanel(){
   try {
     const raw = sessionStorage.getItem('rmOpenPropertyPanel');
-    if (!raw) return;
-    sessionStorage.removeItem('rmOpenPropertyPanel');
-    const o = JSON.parse(raw);
-    if (!o || !o.id || !PROPS[o.id]) return;
-    openPanel(o.id, { tab: o.tab || 'details', applicationId: o.applicationId });
+    if (raw) {
+      sessionStorage.removeItem('rmOpenPropertyPanel');
+      const o = JSON.parse(raw);
+      if (o && o.id && PROPS[o.id]) {
+        openPanel(o.id, { tab: o.tab || 'details', applicationId: o.applicationId });
+        return;
+      }
+    }
+    const params = new URLSearchParams(window.location.search);
+    const openId = params.get('open');
+    if (openId && PROPS[openId]) {
+      openPanel(openId, {
+        tab: params.get('tab') || 'details',
+        applicationId: params.get('application') || null,
+      });
+    }
   } catch (e) {}
 })();
 </script>

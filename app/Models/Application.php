@@ -32,6 +32,22 @@ class Application extends Model
 
     public function fullName(): string { return "{$this->first_name} {$this->last_name}"; }
 
+    public function statusColor(): string
+    {
+        return match ($this->status) {
+            'pending'   => 'gold',
+            'reviewing' => 'navy',
+            'approved'  => 'green',
+            'rejected'  => 'red',
+            default     => 'grey',
+        };
+    }
+
+    public function statusLabel(): string
+    {
+        return ucfirst($this->status);
+    }
+
     public function formattedIncome(): string
     {
         if (!$this->monthly_income_minor_units) return '—';
