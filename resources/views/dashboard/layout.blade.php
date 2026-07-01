@@ -78,10 +78,10 @@
       <a href="{{ route('payments.index') }}" class="db-nav-item {{ request()->routeIs('payments.*') ? 'active' : '' }}">
         <span class="ni">💳</span><span class="db-nav-txt">Payments</span>
       </a>
-      <a href="#" class="db-nav-item">
+      <a href="{{ route('fx-ledger.index') }}" class="db-nav-item {{ request()->routeIs('fx-ledger.*') ? 'active' : '' }}">
         <span class="ni">💱</span><span class="db-nav-txt">FX Ledger</span>
       </a>
-      <a href="#" class="db-nav-item">
+      <a href="{{ route('tax-export.index') }}" class="db-nav-item {{ request()->routeIs('tax-export.*') ? 'active' : '' }}">
         <span class="ni">📤</span><span class="db-nav-txt">Tax Export</span>
       </a>
       <a href="{{ route('billing.index') }}" class="db-nav-item {{ request()->routeIs('billing.*') ? 'active' : '' }}">
@@ -185,37 +185,6 @@
     </div>
     @endif
   </nav>
-  <div class="db-sidebar-footer">
-    @if(auth()->user()->isTenant())
-    <a href="{{ route('tenant.account') }}" class="db-user db-user-link {{ request()->routeIs('tenant.account') ? 'active' : '' }}" aria-label="Profile, background, and payment settings">
-      <div class="db-avatar">{{ strtoupper(substr(auth()->user()->first_name ?? 'U', 0, 1)) }}</div>
-      <div class="db-user-text">
-        <div class="db-user-name">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</div>
-        <div class="db-user-role">Settings</div>
-      </div>
-    </a>
-    @elseif(auth()->user()->isLandlord())
-    <a href="{{ route('landlord.account') }}" class="db-user db-user-link {{ request()->routeIs('landlord.account') ? 'active' : '' }}" aria-label="Account">
-      <div class="db-avatar">{{ strtoupper(substr(auth()->user()->first_name ?? 'U', 0, 1)) }}</div>
-      <div class="db-user-text">
-        <div class="db-user-name">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</div>
-        <div class="db-user-role">{{ ucfirst(auth()->user()->role) }}</div>
-      </div>
-    </a>
-    @else
-    <div class="db-user">
-      <div class="db-avatar">{{ strtoupper(substr(auth()->user()->first_name ?? 'U', 0, 1)) }}</div>
-      <div class="db-user-text">
-        <div class="db-user-name">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</div>
-        <div class="db-user-role">{{ ucfirst(auth()->user()->role) }}</div>
-      </div>
-    </div>
-    @endif
-    <form method="POST" action="{{ route('auth.logout') }}">
-      @csrf
-      <button type="submit" class="db-logout"><span class="db-logout-ico" aria-hidden="true">↩</span><span class="db-logout-txt">Sign out</span></button>
-    </form>
-  </div>
 </aside>
 
 <!-- Main -->

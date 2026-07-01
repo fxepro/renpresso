@@ -26,7 +26,7 @@
 </div>
 @else
 <div class="db-stats">
-  <div class="db-stat green"><div class="db-stat-label">Collected this month ({{ $homeCurrency }})</div><div class="db-stat-value">{{ $homeSym }}{{ number_format($thisMonth/100, \App\Support\CurrencyDisplay::decimalPlaces($homeCurrency)) }}</div><div class="db-stat-sub">{{ now()->format('F Y') }} · FX ledger</div></div>
+  <div class="db-stat green"><div class="db-stat-label">Collected this month ({{ $homeCurrency }})</div><div class="db-stat-value">{{ $homeSym }}{{ number_format($thisMonth/100, \App\Support\CurrencyDisplay::decimalPlaces($homeCurrency)) }}</div><div class="db-stat-sub"><a href="{{ route('fx-ledger.index') }}" style="color:inherit;text-decoration:underline;text-underline-offset:2px">{{ now()->format('F Y') }} · FX ledger</a></div></div>
   <div class="db-stat"><div class="db-stat-label">Properties</div><div class="db-stat-value">{{ $stats['total'] }}</div><div class="db-stat-sub">{{ $stats['single_unit'] }} single · {{ $stats['multi_unit'] }} multi</div></div>
   <div class="db-stat"><div class="db-stat-label">Active leases</div><div class="db-stat-value">{{ $stats['active_leases'] }}</div><div class="db-stat-sub">{{ $stats['occupied_slots'] }}/{{ $stats['total_slots'] }} slots occupied</div></div>
   <div class="db-stat {{ $stats['occupancy_pct'] >= 80 ? 'green' : ($stats['vacant_slots'] > 0 ? 'terra' : '') }}"><div class="db-stat-label">Occupancy</div><div class="db-stat-value">{{ $stats['occupancy_pct'] }}%</div><div class="db-stat-sub">{{ $stats['vacant_slots'] }} vacant slot{{ $stats['vacant_slots'] === 1 ? '' : 's' }}</div></div>

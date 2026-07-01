@@ -32,23 +32,10 @@
     </div>
   </div>
   @include('admin.partials.sidebar')
-  <div class="db-sidebar-footer">
-    <div class="db-user">
-      <div class="db-avatar">{{ strtoupper(substr(auth()->user()->first_name ?? 'A', 0, 1)) }}</div>
-      <div class="db-user-text">
-        <div class="db-user-name">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</div>
-        <div class="db-user-role">Platform admin</div>
-      </div>
-    </div>
-    <form method="POST" action="{{ route('auth.logout') }}">
-      @csrf
-      <button type="submit" class="db-logout"><span class="db-logout-ico" aria-hidden="true">↩</span><span class="db-logout-txt">Sign out</span></button>
-    </form>
-  </div>
 </aside>
 
 <div class="db-main">
-  @include('partials.sections.app-page-header', ['kicker' => 'Internal', 'showMarketingLink' => true])
+  @include('partials.sections.app-page-header', ['kicker' => 'Internal', 'showMarketingLink' => true, 'showContext' => true])
   <div class="db-content">
     @if(session('success'))
       <div class="db-alert db-alert-success">✓ {{ session('success') }}</div>

@@ -16,16 +16,9 @@
 @php
   $maintTeam = auth()->user()->ownedMaintenanceTeam;
   $maintOpenJobs = 0;
-  $maintAccountAttention = false;
   if ($maintTeam) {
     $maintOpenJobs = \App\Models\MaintenanceRequest::where('maintenance_team_id', $maintTeam->id)
       ->whereIn('status', ['submitted', 'acknowledged', 'in_progress'])->count();
-    $maintTeam->loadMissing('documents');
-    $maintAccountAttention = ! $maintTeam->complianceSummary()['complete'];
-  }
-  $user = auth()->user();
-  if (! $user->maintenanceDirectorIdentityVerified() && $user->maintenanceDirectorIdentityStatus() !== 'pending') {
-    $maintAccountAttention = true;
   }
 @endphp
 <aside class="db-sidebar" id="dbSidebar">
@@ -57,25 +50,6 @@
       </a>
     </div>
   </nav>
-  <div class="db-sidebar-footer">
-    <a href="{{ route('maint.account') }}" class="db-user db-user-link {{ request()->routeIs('maint.account*') ? 'active' : '' }}" aria-label="Account — profile, director identity, and compliance documents">
-      <div class="db-avatar">{{ strtoupper(substr(auth()->user()->first_name ?? 'U', 0, 1)) }}</div>
-      <div class="db-user-text" style="flex:1;min-width:0">
-        <div class="db-user-name">{{ auth()->user()->fullName() }}</div>
-        <div class="db-user-role">Account</div>
-      </div>
-      <div class="db-user-badges">
-        @if($maintAccountAttention)
-          <span class="db-nav-badge" title="Finish account documents">!</span>
-        @elseif(auth()->user()->maintenanceDirectorIdentityVerified())
-          <span class="db-nav-badge green" title="Director identity verified">✓</span>
-        @endif
-      </div>
-    </a>
-    <form method="POST" action="{{ route('auth.logout') }}">@csrf
-      <button type="submit" class="db-logout"><span>↩</span> Sign out</button>
-    </form>
-  </div>
 </aside>
 <div class="db-main">
   @include('partials.sections.app-page-header', ['showContext' => true])

@@ -129,4 +129,25 @@ class LedgerService
             ],
         ];
     }
+
+    /** Successful rent collected in home currency for a calendar month. */
+    public function monthlyHomeTotal(string $landlordId, int $year, int $month): int
+    {
+        return (int) \App\Models\Payment::query()
+            ->whereHas('lease.property', fn ($q) => $q->where('landlord_id', $landlordId))
+            ->where('status', 'success')
+            ->whereYear('collected_at', $year)
+            ->whereMonth('collected_at', $month)
+            ->sum('home_amount_minor_units');
+    }
+
+    /** Successful rent collected in home currency for a calendar year. */
+    public function yearlyHomeTotal(string $landlordId, int $year): int
+    {
+        return (int) \App\Models\Payment::query()
+            ->whereHas('lease.property', fn ($q) => $q->where('landlord_id', $landlordId))
+            ->where('status', 'success')
+            ->whereYear('collected_at', $year)
+            ->sum('home_amount_minor_units');
+    }
 }

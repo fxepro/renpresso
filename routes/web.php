@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\Auth\{LoginController, RegisterController, ForgotPasswordController, MaintenanceStaffRegisterController, CleaningStaffRegisterController};
 use App\Http\Controllers\{WaitlistController, WebhookController, DashboardController, ApplicationController,
-    PropertyController, PropertyMediaController, PropertyUnitSlotController, LeaseController, SubLeaseController, TenantController, TenantPortalController, PaymentController, MaintenanceController, PublicListingController,
+    PropertyController, PropertyMediaController, PropertyUnitSlotController, LeaseController, SubLeaseController, TenantController, TenantPortalController, PaymentController, FxLedgerController, TaxExportController, MaintenanceController, PublicListingController,
     LandlordAccountController, LandlordMaintenanceTeamController, LandlordCleaningTeamController, DocumentFileController, MessageController, DocumentsController, LeaseTemplateController, HelpController, DealsController,
     MaintenancePortalController, MaintenanceCityController, MaintenanceTeamProfileController, MaintenancePaymentsController, MaintenanceInvoiceController, MaintenanceAccountController,
     CleaningPortalController, CleaningCityController, CleaningTeamProfileController, CleaningAccountController,
@@ -187,6 +187,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/billing',              [\App\Http\Controllers\BillingController::class, 'index'])->name('billing.index');
     Route::get('/billing/{year}/{month}', [\App\Http\Controllers\BillingController::class, 'show'])->name('billing.show')->whereNumber(['year', 'month']);
+
+    Route::get('/fx-ledger', [FxLedgerController::class, 'index'])->name('fx-ledger.index');
+    Route::post('/fx-ledger/repatriation', [FxLedgerController::class, 'storeRepatriation'])->name('fx-ledger.repatriation.store');
+
+    Route::get('/tax-export', [TaxExportController::class, 'index'])->name('tax-export.index');
+    Route::get('/tax-export/{property}/csv', [TaxExportController::class, 'csv'])->name('tax-export.csv')->whereUuid('property');
+    Route::get('/tax-export/{property}/pdf', [TaxExportController::class, 'pdf'])->name('tax-export.pdf')->whereUuid('property');
 
     Route::resource('properties', PropertyController::class)->only(['index','create','store','show','update','destroy']);
     Route::get('/properties/{property}/units/{unit_seq}', [PropertyController::class, 'showUnit'])->name('properties.units.show')->whereNumber('unit_seq');

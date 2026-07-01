@@ -35,18 +35,6 @@
       </a>
     </div>
   </nav>
-  <div class="db-sidebar-footer">
-    <a href="{{ route('clean.account') }}" class="db-user db-user-link {{ request()->routeIs('clean.account*') ? 'active' : '' }}">
-      <div class="db-avatar">{{ strtoupper(substr(auth()->user()->first_name ?? 'U', 0, 1)) }}</div>
-      <div style="flex:1;min-width:0">
-        <div class="db-user-name">{{ auth()->user()->fullName() }}</div>
-        <div class="db-user-role">Account</div>
-      </div>
-    </a>
-    <form method="POST" action="{{ route('auth.logout') }}">@csrf
-      <button type="submit" class="db-logout"><span>↩</span> Sign out</button>
-    </form>
-  </div>
 </aside>
 <div class="db-main">
   @include('partials.sections.app-page-header', ['showContext' => true])
